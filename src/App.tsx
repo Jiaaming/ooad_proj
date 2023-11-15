@@ -6,7 +6,6 @@ import GameComponent from './components/GameComponent';
 function App() {
   return (
     <div className="App">
-
       <main>
         <GameComponent />
       </main>

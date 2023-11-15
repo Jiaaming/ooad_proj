@@ -7,6 +7,7 @@ import { MonopolyGame } from '../classes/MonopolyGame';
 const GameComponent = () => {
     const [game, setGame] = useState<MonopolyGame | null>(null);
     const [version, setVersion] = useState(0); // 状态更新的版本号现在位于组件顶部
+    const [lastRoll, setLastRoll] = useState<number | null>(null); // 添加一个新状态来追踪最后一次掷骰子的结果
 
     const startGame = (playerNames: string[]) => {
         setGame(new MonopolyGame(playerNames));
@@ -18,15 +19,19 @@ const GameComponent = () => {
     }
     const handleRollAndMove = () => {
         if (!game.isOver) {
-            game.play_round(); // 玩一轮游戏
+            const roll = game.play_round(); // 玩一轮游戏
+            setLastRoll(roll); // 更新最后一次掷骰子的结果
             setVersion(v => v + 1); // 触发重新渲染
         } else {
+            setLastRoll(null)
             console.log("The game has ended.");
         }
     };
     const handleResetGame = () => {
         game.reset_game(); // 调用重置游戏的方法
+        setLastRoll(null)
         setVersion(v => v + 1); // 更新版本状态以触发重新渲染
+
     };
 
     const playerColors = game.players.reduce((acc, player) => {
@@ -49,6 +54,7 @@ const GameComponent = () => {
             <BoardComponent board={game.board} playerPositions={playerPositions} playerColors={playerColors} />
             {!game.isOver ? (
                 <>
+                    {lastRoll !== null && <p>Last player just roll: {lastRoll}</p>}
                     <button style={{width:'180px', height:'50px',fontSize:'20px'}}onClick={handleRollAndMove}>Roll and Move🏃🏼‍♂️</button>
                     <h2>{game.current_player.name} will roll🥳</h2>
                     

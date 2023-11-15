@@ -5,7 +5,7 @@ type SetupComponentProps = {
   onStart: (playerNames: string[]) => void;
 };
 
-const SetupComponent: React.FC<SetupComponentProps> = ({ onStart }) => {
+const SetupComponent = ({ onStart }:SetupComponentProps) => {
   // 初始两个空字符串表示最少两个玩家名字
   const [playerNames, setPlayerNames] = useState(['', '']);
 

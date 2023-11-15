@@ -9,10 +9,14 @@ const SquareComponent = ({ color, name }: SquareComponentProps) => {
   const style = {
     width: '60px',
     height: '60px',
+    padding:'10px',
+    marginTop:'20px',
+    background:color,
     backgroundColor: color,
     border: '1px solid black',
     display: 'inline-block',
     lineHeight: '60px',
+    
   };
 
   return <div style={style}>{name}</div>;

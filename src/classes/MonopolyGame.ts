@@ -27,11 +27,11 @@ export class MonopolyGame {
     console.log("Game started");
   }
 
-  play_round(): void {
+  play_round(): number {
     // 只控制当前活动玩家的行动
     if (this.isOver) {
       console.log("The game is over.");
-      return;
+      return -1;
     }
 
     const currentPlayer = this.players[this.currentPlayerIndex];
@@ -52,6 +52,7 @@ export class MonopolyGame {
       this.isOver = true; // 设置游戏结束状态
     }
     // TODO: 这里可以添加玩家移动后的逻辑，比如买地产、付租金等
+    return rollSum;
   }
   reset_game(): void {
     this.players.forEach(player => {
@@ -62,7 +63,7 @@ export class MonopolyGame {
     this.isOver = false; // 重置游戏结束标志
     console.log("Game has been reset.");
   }
-  
+
   updateGame(): MonopolyGame {
     // 这里可以添加其他逻辑
     return this; // 返回当前游戏实例的引用
