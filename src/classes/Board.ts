@@ -12,7 +12,7 @@ export class Board {
   initializeSquares(): void {
     // 假设棋盘有35个方格
     for (let i = 0; i < 35; i++) {
-      this.squares.push(new Square(`Square ${i}`));
+      this.squares.push(new Square(`Square ${i}`, i));
     }
   }
 

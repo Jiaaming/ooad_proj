@@ -42,7 +42,7 @@ const GameComponent = () => {
 
     // 将玩家位置映射到棋盘上
     const playerPositions = game.players.reduce((acc, player) => {
-        acc[player.name] = player.position;
+        acc[player.name] = player.piece.getPieceNum();
         return acc;
     }, {} as { [key: string]: number });
 

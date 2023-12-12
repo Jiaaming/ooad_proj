@@ -2,6 +2,7 @@
 import { Player } from './Player';
 import { Board } from './Board';
 import { Dice } from './Dice';
+import { Piece } from "./Piece";
 
 export class MonopolyGame {
   players: Player[];
@@ -10,11 +11,12 @@ export class MonopolyGame {
   roundCnt: number;
   currentPlayerIndex: number; // 当前玩家的索引
   isOver: boolean
-
-  constructor(playerNames: string[]) {
+  boardLength: number
+  constructor(playerNames: string[], boardLength?: number) {
+    this.boardLength = boardLength !== undefined ? boardLength : 35;
     this.board = new Board();
     this.dice = new Dice();
-    this.players = playerNames.map(name => new Player(name));
+    this.players = playerNames.map(name => new Player(name, this.board));
     this.roundCnt = 0;
     this.currentPlayerIndex = 0; // 开始时设置当前玩家为第一个玩家
     this.isOver = false
@@ -37,7 +39,7 @@ export class MonopolyGame {
     const currentPlayer = this.players[this.currentPlayerIndex];
     const rollSum = this.dice.roll()
     currentPlayer.move(rollSum);
-    console.log(`${currentPlayer.name} rolled a ${rollSum} and moved to position ${currentPlayer.position}`);
+    console.log(`${currentPlayer.name} rolled a ${rollSum} and moved to position ${currentPlayer.piece}`);
     
     // 更新当前玩家索引以轮到下一个玩家
     this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.length;
@@ -46,7 +48,7 @@ export class MonopolyGame {
       this.roundCnt++;
       console.log(`Round ${this.roundCnt} completed.`);
     }
-    const winningPlayer = this.players.find(player => player.position >= 35);
+    const winningPlayer = this.players.find(player => player.getPiece().getPieceNum() >= this.boardLength);
     if (winningPlayer) {
       console.log(`${winningPlayer.name} has won the game!`);
       this.isOver = true; // 设置游戏结束状态
@@ -56,7 +58,7 @@ export class MonopolyGame {
   }
   reset_game(): void {
     this.players.forEach(player => {
-      player.position = 0; // 重置玩家位置
+      player.piece.location = this.board.squares[0]; // 重置玩家位置
     });
     this.roundCnt = 0;
     this.currentPlayerIndex = 0;

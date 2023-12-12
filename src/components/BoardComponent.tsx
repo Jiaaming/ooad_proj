@@ -2,8 +2,7 @@
 import React from 'react';
 import SquareComponent from './SquareComponent';
 import { Board } from '../classes/Board';
-// src/components/BoardComponent.tsx
-// ...其他代码
+
 
 type BoardComponentProps = {
     board: Board;
@@ -11,8 +10,7 @@ type BoardComponentProps = {
     playerColors: { [key: string]: string }; // 新增道具，玩家名称和颜色的映射
 };
 
-// src/components/BoardComponent.tsx
-// ...其他代码
+
 
 const BoardComponent = ({ board, playerPositions, playerColors }: BoardComponentProps) => {
     return (
