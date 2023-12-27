@@ -28,7 +28,7 @@ const BoardComponent = ({ board, playerPositions, playerColors }: BoardComponent
 
                 return (
                     <SquareComponent 
-                        key={index}
+                        id={square.id}
                         color={colorStyle} // 这里传递颜色样式字符串
                         name={square.name}
                     />

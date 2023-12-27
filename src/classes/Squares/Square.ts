@@ -1,5 +1,7 @@
 // src/models/Square.ts
-export class Square {
+import {Player} from "../Player";
+
+export abstract class Square {
     private _name: string;
     private _id: number;
 
@@ -23,5 +25,9 @@ export class Square {
       this._name = name;
       this._id = id;
     }
+
+    abstract SquareEvent(player: Player): void;
+
+    abstract getType(): string;
   }
   

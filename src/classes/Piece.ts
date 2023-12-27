@@ -1,5 +1,5 @@
 // src/models/Piece.ts
-import { Square } from './Square';
+import { Square } from './Squares/Square';
 
 export class Piece {
     private _name: string;
